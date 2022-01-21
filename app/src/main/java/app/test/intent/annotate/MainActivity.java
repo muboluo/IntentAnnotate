@@ -20,16 +20,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         InjectViewUtil.injectViews(this);
 
+        tv_start_activity.setText("Welcome, this is inject example");
+
         tv_start_activity.setOnClickListener(v -> {
 
-            // TODO: 1/7/22 传递参数，开启新界面
+            // 传递参数，开启新界面
             final Intent intent = new Intent(MainActivity.this, SecondActivity.class);
 
             intent.putExtra("temp1", "result1");
             intent.putExtra("temp2", "result2");
-            intent.putExtra("temp3", "result3");
-            intent.putExtra("temp4", "result4");
-            intent.putExtra("temp5", "result5");
 
             MainActivity.this.startActivity(intent);
         });

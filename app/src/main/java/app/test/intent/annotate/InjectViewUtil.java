@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -23,7 +24,7 @@ class InjectViewUtil {
             return;
         }
 
-        final Field[] fields = activity.getClass().getFields();
+        final Field[] fields = activity.getClass().getDeclaredFields();
 
         for (Field field :
                 fields) {
@@ -36,6 +37,7 @@ class InjectViewUtil {
                 final Method findViewById = activity.getClass().getMethod("findViewById", int.class);
                 findViewById.setAccessible(true);
                 final Object view = findViewById.invoke(activity, viewId);
+                field.setAccessible(true);
                 field.set(activity, view);
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
